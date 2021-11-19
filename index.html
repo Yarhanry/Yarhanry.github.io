@@ -55,11 +55,13 @@
 			
 				<li><a href="/">主页介绍</a></li>
 	        
-				<li><a href="/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/">生活随笔</a></li>
+				<li><a href="/">生活随笔</a></li>
 	        
 				<li><a href="/">回忆相册</a></li>
 	        
 				<li><a href="/">个人经历</a></li>
+	        
+				<li><a href="/archives/index.html">文章归档</a></li>
 	        
 			</ul>
 		</nav>
@@ -115,6 +117,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -133,13 +137,15 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 25%"><a href="/">主页介绍</a></li>
+					<li style="width: 20%"><a href="/">主页介绍</a></li>
 		        
-					<li style="width: 25%"><a href="/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/">生活随笔</a></li>
+					<li style="width: 20%"><a href="/">生活随笔</a></li>
 		        
-					<li style="width: 25%"><a href="/">回忆相册</a></li>
+					<li style="width: 20%"><a href="/">回忆相册</a></li>
 		        
-					<li style="width: 25%"><a href="/">个人经历</a></li>
+					<li style="width: 20%"><a href="/">个人经历</a></li>
+		        
+					<li style="width: 20%"><a href="/archives/index.html">文章归档</a></li>
 		        
 				</ul>
 			</nav>
@@ -176,7 +182,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&lt;! – more –&gt;</p>
+        <span id="more"></span>
+
 <h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><p>BP(Back Propagation)算法是由学习过程由信号的正向传播与误差的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?from=pc_blog_highlight&q=%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD">反向传播</a>两个过程组成。由于多层前馈网络的训练经常采用误差反向传播算法，人们也常把将多层前馈网络直接称为BP网络。</p>
 <h2 id="前期准备："><a href="#前期准备：" class="headerlink" title="前期准备："></a>前期准备：</h2><p>为了更好地了解BP算法，首先我们要对神经网络有个大致了解：</p>
 <ol>
@@ -184,10 +191,7 @@
 <p>人工神经网络包括多个神经网络层，如卷积层、全连接层、LSTM等，每一层又包括很多神经元，超过三层的非线性神经网络都可以被称为深度神经网络。通俗的讲，深度学习的模型可以视为是输入到输出的映射函数，如图像到高级语义（美女）的映射，足够深的神经网络理论上可以拟合任何复杂的函数。因此神经网络非常适合学习样本数据的内在规律和表示层次，对文字、图像和语音任务有很好的适用性。因为这几个领域的任务是人工智能的基础模块，所以深度学习被称为实现人工智能的基础也就不足为奇了。<br> 神经元： 神经网络中每个节点称为神经元，由两部分组成：<br>加权和：将所有输入加权求和。<br>非线性变换（激活函数）：加权和的结果经过一个非线性函数变换，让神经元计算具备非线性的能力。<br>多层连接： 大量这样的节点按照不同的层次排布，形成多层的结构连接起来，即称为神经网络。<br>前向计算： 从输入计算输出的过程，顺序从网络前至后。<br>后向传播：更新、优化参数<br>计算图： 以图形化的方式展现神经网络的计算逻辑又称为计算图。我们也可以将神经网络的计算图以公式的方式表达，如下：<br>Y = f3(f2(f1(w1<em>x1+w2</em>x2+w3*x3+b)+…)…)<br>由此可见，神经网络并没有那么神秘，它的本质是一个含有很多参数的“大公式” </p>
 <ol start="2">
 <li><strong>神经网络基本结构</strong></li>
-<li>类似于人大脑的结构，由“神经元”构成 ，可暂时理解成一个用来装数字的容器，装着0到1之间的数字，这些数字代表对应像素的灰度值，并称为“激活值”，值越大该神经元越亮。</li>
-<li>神经网络有多个层，其中第一层叫“输入层”，最后一层叫“输出层”，中间的叫“隐含层”</li>
-<li>上一层的激活值将决定决定下一层的激活值，某些神经元的激发，就会促使另一些神经元激发，”输出层”最亮的神经元就是输出值。</li>
-<li>前一层所有的激活值乘相应权重之和再加上偏置，最后送进sigmoid函数中，才使下一层的某个神经元激发得更有意义。</li>
+<li>类似于人大脑的结构，由“神经元”构成 ，可暂时理解成一个用来装数字的容器，装着0到1之间的数字，这些数字代表对应像素的灰度值，并称为“激活值”，值越大该神经元越亮。<br> 2.神经网络有多个层，其中第一层叫“输入层”，最后一层叫“输出层”，中间的叫“隐含层”<br> 3.上一层的激活值将决定决定下一层的激活值，某些神经元的激发，就会促使另一些神经元激发，”输出层”最亮的神经元就是输出值。<br> 4.前一层所有的激活值乘相应权重之和再加上偏置，最后送进sigmoid函数中，才使下一层的某个神经元激发得更有意义。</li>
 </ol>
 <p> <img src="https://img-blog.csdnimg.cn/20210217225359248.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzA1NjIxMg==,size_16,color_FFFFFF,t_70#pic_center" alt="结构示意图"></p>
 </li>
@@ -411,7 +415,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">我曾七次鄙视自己的灵魂&lt;br&gt;&lt;br&gt;      --纪伯伦&lt;br&gt;第一次，当它本可进取时，却故作谦卑；&lt;br&gt;第二次，当它在空虚时，用爱欲来填充；&lt;br&gt;第三次，在困难和容易之间，它选择了容易；&lt;br&gt;第四次，它犯了错，却借由别人也会犯错来宽慰自己；&lt;br&gt;第五次，它自由软弱，却把它认为是生命的坚韧；&lt;br&gt;第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；&lt;br&gt;第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾。</div>
   	  	
     	</section>
     
